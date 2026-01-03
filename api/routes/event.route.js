@@ -88,7 +88,7 @@ router.post('/', async (req, res, next) => {
             това са детайлите за вашия час:<br/>
             - Услуга: ${service.name}<br/>
             - Служител: ${employee.name}<br/>
-            - Цена: ${service.price}${service.currency} (${service.priceEur} EUR)<br/>
+            - Цена: ${service.price}${service.currency} (${service.priceEur} лв.)<br/>
             - Дата: ${moment(startDt).tz(req.body.timezone).format("YYYY-MM-DD")}<br/>
             - Час: ${moment(startDt).tz(req.body.timezone).format("HH:mm")}<br/>
             - Продължителност: ${duration} ${duration == 1 ? 'минута': 'минути'}<br/>
