@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { format, isToday, parseISO, isFuture } from 'date-fns';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useAppointmentsStore } from '../../../src/stores/appointmentsStore';
@@ -144,9 +145,12 @@ export default function AdminDashboardScreen() {
                     <Text style={[typography.label, { color: colors.text }]}>
                       {apt.customer.name}
                     </Text>
-                    <Text style={[typography.caption, { color: colors.textSecondary }]}>
-                      {service?.icon} {service?.name} • {employee?.name}
-                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Ionicons name="cut-outline" size={12} color={colors.textSecondary} />
+                      <Text style={[typography.caption, { color: colors.textSecondary, marginLeft: 4 }]}>
+                        {service?.name} • {employee?.name}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </Card>

@@ -12,10 +12,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { format, parseISO, isToday, isPast, isFuture } from 'date-fns';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useAppointmentsStore } from '../../../src/stores/appointmentsStore';
-import { Card, Button, Input, LoadingSpinner, EmptyState } from '../../../src/components/ui';
+import { Card, Input, LoadingSpinner, EmptyState } from '../../../src/components/ui';
 import {
   getEmployeeById,
   getServiceById,
@@ -116,9 +117,12 @@ export default function AdminAppointmentsScreen() {
               <Text style={[typography.label, { color: colors.text }]}>
                 {appointment.customer.name}
               </Text>
-              <Text style={[typography.caption, { color: colors.textSecondary }]}>
-                📱 {appointment.customer.phone}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                <Ionicons name="call-outline" size={12} color={colors.textSecondary} />
+                <Text style={[typography.caption, { color: colors.textSecondary, marginLeft: 4 }]}>
+                  {appointment.customer.phone}
+                </Text>
+              </View>
             </View>
             {appointment.status !== 'confirmed' && (
               <View
@@ -145,12 +149,18 @@ export default function AdminAppointmentsScreen() {
           </View>
 
           <View style={[styles.cardDetails, { marginTop: spacing.sm }]}>
-            <Text style={[typography.bodySmall, { color: colors.textSecondary }]}>
-              {service?.icon} {service?.name} • {format(parseISO(appointment.start), 'HH:mm')}
-            </Text>
-            <Text style={[typography.bodySmall, { color: colors.textSecondary }]}>
-              👤 {employee?.name}
-            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Ionicons name="cut-outline" size={14} color={colors.textSecondary} />
+              <Text style={[typography.bodySmall, { color: colors.textSecondary, marginLeft: 4 }]}>
+                {service?.name} • {format(parseISO(appointment.start), 'HH:mm')}
+              </Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+              <Ionicons name="person-outline" size={14} color={colors.textSecondary} />
+              <Text style={[typography.bodySmall, { color: colors.textSecondary, marginLeft: 4 }]}>
+                {employee?.name}
+              </Text>
+            </View>
           </View>
 
           {isUpcoming && (
@@ -159,24 +169,27 @@ export default function AdminAppointmentsScreen() {
                 style={[styles.actionButton, { backgroundColor: colors.success + '20' }]}
                 onPress={() => handleCall(appointment.customer.phone)}
               >
-                <Text style={[typography.labelSmall, { color: colors.success }]}>
-                  📞 {t('admin.appointments.call')}
+                <Ionicons name="call" size={14} color={colors.success} />
+                <Text style={[typography.labelSmall, { color: colors.success, marginLeft: 4 }]}>
+                  {t('admin.appointments.call')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.actionButton, { backgroundColor: colors.info + '20' }]}
                 onPress={() => router.push(`/(admin)/appointments/${appointment._id}`)}
               >
-                <Text style={[typography.labelSmall, { color: colors.info }]}>
-                  ✏️ {t('common.edit')}
+                <Ionicons name="create-outline" size={14} color={colors.info} />
+                <Text style={[typography.labelSmall, { color: colors.info, marginLeft: 4 }]}>
+                  {t('common.edit')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.actionButton, { backgroundColor: colors.error + '20' }]}
                 onPress={() => handleCancel(appointment._id)}
               >
-                <Text style={[typography.labelSmall, { color: colors.error }]}>
-                  ❌ {t('common.cancel')}
+                <Ionicons name="close-circle-outline" size={14} color={colors.error} />
+                <Text style={[typography.labelSmall, { color: colors.error, marginLeft: 4 }]}>
+                  {t('common.cancel')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -204,7 +217,7 @@ export default function AdminAppointmentsScreen() {
             placeholder={t('common.search')}
             value={searchQuery}
             onChangeText={setSearchQuery}
-            leftIcon={<Text>🔍</Text>}
+            leftIcon={<Ionicons name="search" size={18} color={colors.textMuted} />}
           />
         </View>
 
@@ -249,7 +262,7 @@ export default function AdminAppointmentsScreen() {
       >
         {displayAppointments.length === 0 ? (
           <EmptyState
-            icon="📋"
+            iconName="list-outline"
             title="Няма намерени резервации"
           />
         ) : (
@@ -262,7 +275,7 @@ export default function AdminAppointmentsScreen() {
         style={[styles.fab, { backgroundColor: colors.primary }]}
         onPress={() => router.push('/(admin)/appointments/create')}
       >
-        <Text style={styles.fabIcon}>+</Text>
+        <Ionicons name="add" size={28} color="#FFFFFF" />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -309,9 +322,11 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     flex: 1,
+    flexDirection: 'row',
     paddingVertical: 8,
     borderRadius: 6,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   fab: {
     position: 'absolute',
@@ -327,10 +342,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-  },
-  fabIcon: {
-    fontSize: 32,
-    color: '#FFFFFF',
-    lineHeight: 36,
   },
 });

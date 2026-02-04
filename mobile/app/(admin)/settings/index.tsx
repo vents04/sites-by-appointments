@@ -4,12 +4,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useUserPreferencesStore } from '../../../src/stores/userPreferencesStore';
@@ -50,22 +50,22 @@ export default function AdminSettingsScreen() {
 
   const menuItems = [
     {
-      icon: '🏢',
+      icon: 'business-outline' as const,
       title: t('admin.settings.businessInfo'),
       onPress: () => {},
     },
     {
-      icon: '🕐',
+      icon: 'time-outline' as const,
       title: t('admin.settings.workingHours'),
       onPress: () => {},
     },
     {
-      icon: '👥',
+      icon: 'people-outline' as const,
       title: t('admin.settings.employees'),
       onPress: () => {},
     },
     {
-      icon: '🎨',
+      icon: 'color-palette-outline' as const,
       title: t('admin.settings.branding'),
       subtitle: 'Цветове, лого',
       onPress: () => {},
@@ -95,7 +95,9 @@ export default function AdminSettingsScreen() {
         {menuItems.map((item, index) => (
           <Card key={index} onPress={item.onPress} style={{ marginBottom: spacing.sm }}>
             <View style={styles.menuRow}>
-              <Text style={styles.menuIcon}>{item.icon}</Text>
+              <View style={[styles.menuIconContainer, { backgroundColor: colors.primaryBackground }]}>
+                <Ionicons name={item.icon} size={20} color={colors.primary} />
+              </View>
               <View style={styles.menuContent}>
                 <Text style={[typography.body, { color: colors.text }]}>{item.title}</Text>
                 {item.subtitle && (
@@ -104,7 +106,7 @@ export default function AdminSettingsScreen() {
                   </Text>
                 )}
               </View>
-              <Text style={{ color: colors.textMuted }}>▶</Text>
+              <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
             </View>
           </Card>
         ))}
@@ -120,11 +122,13 @@ export default function AdminSettingsScreen() {
         </Text>
         <Card onPress={handleLanguageChange}>
           <View style={styles.menuRow}>
-            <Text style={styles.menuIcon}>{language === 'bg' ? '🇧🇬' : '🇬🇧'}</Text>
+            <View style={[styles.menuIconContainer, { backgroundColor: colors.primaryBackground }]}>
+              <Ionicons name="language-outline" size={20} color={colors.primary} />
+            </View>
             <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
               {language === 'bg' ? 'Български' : 'English'}
             </Text>
-            <Text style={[typography.body, { color: colors.textMuted }]}>▼</Text>
+            <Ionicons name="chevron-down" size={20} color={colors.textMuted} />
           </View>
         </Card>
 
@@ -134,7 +138,9 @@ export default function AdminSettingsScreen() {
           style={{ marginTop: spacing.xl }}
         >
           <View style={styles.menuRow}>
-            <Text style={styles.menuIcon}>🚪</Text>
+            <View style={[styles.menuIconContainer, { backgroundColor: colors.error + '15' }]}>
+              <Ionicons name="log-out-outline" size={20} color={colors.error} />
+            </View>
             <Text style={[typography.body, { color: colors.error }]}>
               {t('settings.logout')}
             </Text>
@@ -170,8 +176,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  menuIcon: {
-    fontSize: 24,
+  menuIconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 12,
   },
   menuContent: {

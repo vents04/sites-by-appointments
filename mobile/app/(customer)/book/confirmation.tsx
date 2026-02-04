@@ -40,7 +40,6 @@ export default function ConfirmationScreen() {
     setPrivacyAccepted,
     getProgress,
     prevStep,
-    reset,
   } = useBookingStore();
   const { createBooking, isCreating } = useAppointmentsStore();
 
@@ -80,7 +79,8 @@ export default function ConfirmationScreen() {
     });
 
     if (appointment) {
-      reset();
+      // Navigate to success screen - do NOT reset here
+      // The reset will happen when user navigates away from success screen
       router.replace('/(customer)/book/success');
     }
   };

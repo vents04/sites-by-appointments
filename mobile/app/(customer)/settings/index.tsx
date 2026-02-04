@@ -4,13 +4,13 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Switch,
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useUserPreferencesStore } from '../../../src/stores/userPreferencesStore';
@@ -85,11 +85,13 @@ export default function SettingsScreen() {
         </Text>
         <Card onPress={handleLanguageChange} style={{ marginBottom: spacing.xl }}>
           <View style={styles.settingRow}>
-            <Text style={styles.settingIcon}>{language === 'bg' ? '🇧🇬' : '🇬🇧'}</Text>
+            <View style={[styles.iconContainer, { backgroundColor: colors.primaryBackground }]}>
+              <Ionicons name="language-outline" size={20} color={colors.primary} />
+            </View>
             <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
               {language === 'bg' ? 'Български' : 'English'}
             </Text>
-            <Text style={[typography.body, { color: colors.textMuted }]}>▼</Text>
+            <Ionicons name="chevron-down" size={20} color={colors.textMuted} />
           </View>
         </Card>
 
@@ -106,7 +108,7 @@ export default function SettingsScreen() {
               value={pushNotificationsEnabled}
               onValueChange={setPushNotifications}
               trackColor={{ false: colors.border, true: colors.primary }}
-              thumbColor={colors.white}
+              thumbColor="#FFFFFF"
             />
           </View>
           <View style={[styles.divider, { backgroundColor: colors.borderLight }]} />
@@ -118,7 +120,7 @@ export default function SettingsScreen() {
               value={reminderEnabled}
               onValueChange={setReminder}
               trackColor={{ false: colors.border, true: colors.primary }}
-              thumbColor={colors.white}
+              thumbColor="#FFFFFF"
             />
           </View>
         </Card>
@@ -126,7 +128,9 @@ export default function SettingsScreen() {
         {/* Leave Business */}
         <Card onPress={handleLeaveBusiness} style={{ marginBottom: spacing.xl }}>
           <View style={styles.settingRow}>
-            <Text style={styles.settingIcon}>🚪</Text>
+            <View style={[styles.iconContainer, { backgroundColor: colors.error + '15' }]}>
+              <Ionicons name="log-out-outline" size={20} color={colors.error} />
+            </View>
             <View style={{ flex: 1 }}>
               <Text style={[typography.body, { color: colors.error }]}>
                 {t('settings.leaveBusiness')}
@@ -170,8 +174,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
   },
-  settingIcon: {
-    fontSize: 24,
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 12,
   },
   divider: {

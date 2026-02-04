@@ -11,10 +11,11 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useAppointmentsStore } from '../../../src/stores/appointmentsStore';
-import { Button, Input, Card } from '../../../src/components/ui';
+import { Button, Input } from '../../../src/components/ui';
 import {
   getLocationsByBusinessId,
   getEmployeesByLocationId,
@@ -138,8 +139,8 @@ export default function CreateAppointmentScreen() {
         {/* Header */}
         <View style={[styles.header, { paddingHorizontal: spacing.lg, paddingTop: spacing.md }]}>
           <View style={styles.headerRow}>
-            <TouchableOpacity onPress={handleClose}>
-              <Text style={[typography.body, { color: colors.primary }]}>✕ Затвори</Text>
+            <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
+              <Ionicons name="close" size={24} color={colors.text} />
             </TouchableOpacity>
           </View>
           <Text style={[typography.h4, { color: colors.text, marginTop: spacing.md }]}>
@@ -311,6 +312,9 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  closeButton: {
+    padding: 4,
   },
   scrollView: {
     flex: 1,

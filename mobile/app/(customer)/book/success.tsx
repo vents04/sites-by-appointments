@@ -24,6 +24,7 @@ import { format, parseISO } from 'date-fns';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAppointmentsStore } from '../../../src/stores/appointmentsStore';
 import { useAuthStore } from '../../../src/stores/authStore';
+import { useBookingStore } from '../../../src/stores/bookingStore';
 import { Button, Card } from '../../../src/components/ui';
 import {
   getLocationById,
@@ -37,6 +38,7 @@ export default function SuccessScreen() {
   const router = useRouter();
   const { appointments } = useAppointmentsStore();
   const { business } = useAuthStore();
+  const { reset: resetBooking } = useBookingStore();
   const [calendarAdded, setCalendarAdded] = useState(false);
 
   const { colors, spacing, typography } = theme;
@@ -138,10 +140,12 @@ export default function SuccessScreen() {
   };
 
   const handleGoHome = () => {
+    resetBooking();
     router.replace('/(customer)/book');
   };
 
   const handleViewAppointments = () => {
+    resetBooking();
     router.replace('/(customer)/appointments');
   };
 
