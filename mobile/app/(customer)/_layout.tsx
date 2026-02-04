@@ -1,13 +1,8 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../src/theme/ThemeProvider';
-
-// Tab bar icon component
-const TabIcon = ({ icon, focused, color }: { icon: string; focused: boolean; color: string }) => (
-  <Text style={{ fontSize: focused ? 26 : 24, opacity: focused ? 1 : 0.6 }}>{icon}</Text>
-);
+import { Ionicons } from '@expo/vector-icons';
 
 export default function CustomerLayout() {
   const { t } = useTranslation();
@@ -39,7 +34,7 @@ export default function CustomerLayout() {
         options={{
           title: t('booking.title'),
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon icon="✂️" focused={focused} color={color} />
+            <Ionicons name={focused ? 'cut' : 'cut-outline'} size={24} color={color} />
           ),
         }}
       />
@@ -48,7 +43,7 @@ export default function CustomerLayout() {
         options={{
           title: t('appointments.title'),
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon icon="📅" focused={focused} color={color} />
+            <Ionicons name={focused ? 'calendar' : 'calendar-outline'} size={24} color={color} />
           ),
         }}
       />
@@ -57,7 +52,7 @@ export default function CustomerLayout() {
         options={{
           title: t('settings.title'),
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon icon="⚙️" focused={focused} color={color} />
+            <Ionicons name={focused ? 'settings' : 'settings-outline'} size={24} color={color} />
           ),
         }}
       />

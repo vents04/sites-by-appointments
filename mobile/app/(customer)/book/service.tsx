@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useBookingStore } from '../../../src/stores/bookingStore';
@@ -128,8 +129,8 @@ export default function ServiceSelectionScreen() {
               style={{ marginBottom: spacing.md }}
             >
               <View style={styles.cardContent}>
-                <View style={styles.cardIcon}>
-                  <Text style={styles.iconText}>{service.icon || '✂️'}</Text>
+                <View style={[styles.cardIcon, { backgroundColor: colors.primaryBackground, borderRadius: 8, padding: 8 }]}>
+                  <Ionicons name="cut-outline" size={24} color={colors.primary} />
                 </View>
                 <View style={styles.cardInfo}>
                   <Text style={[typography.label, { color: colors.text }]}>
@@ -157,12 +158,12 @@ export default function ServiceSelectionScreen() {
                       ]}
                     >
                       <Text style={[typography.caption, { color: colors.primary }]}>
-                        ✓ {t('booking.location.lastSelected')}
+                        <Ionicons name="checkmark" size={12} color={colors.primary} /> {t('booking.location.lastSelected')}
                       </Text>
                     </View>
                   )}
                 </View>
-                <Text style={{ color: colors.textMuted }}>▶</Text>
+                <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
               </View>
             </Card>
           );
@@ -208,9 +209,6 @@ const styles = StyleSheet.create({
   },
   cardIcon: {
     marginRight: 12,
-  },
-  iconText: {
-    fontSize: 32,
   },
   cardInfo: {
     flex: 1,

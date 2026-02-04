@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../theme/ThemeProvider';
 import { Button } from './Button';
 
 interface EmptyStateProps {
   icon?: string;
+  iconName?: keyof typeof Ionicons.glyphMap;
   title: string;
   message?: string;
   actionLabel?: string;
@@ -13,6 +15,7 @@ interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
   icon,
+  iconName,
   title,
   message,
   actionLabel,
@@ -23,9 +26,16 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 
   return (
     <View style={styles.container}>
-      {icon && (
+      {iconName ? (
+        <Ionicons 
+          name={iconName} 
+          size={64} 
+          color={colors.textMuted} 
+          style={{ marginBottom: spacing.md }} 
+        />
+      ) : icon ? (
         <Text style={[styles.icon, { marginBottom: spacing.md }]}>{icon}</Text>
-      )}
+      ) : null}
       <Text
         style={[
           typography.h4,

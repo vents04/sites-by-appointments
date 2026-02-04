@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { format, parseISO } from 'date-fns';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useBookingStore } from '../../../src/stores/bookingStore';
@@ -112,13 +113,13 @@ export default function ConfirmationScreen() {
           {/* Booking Details */}
           <View style={styles.summarySection}>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryIcon}>📍</Text>
+              <Ionicons name="location-outline" size={20} color={colors.icon} style={styles.summaryIcon} />
               <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
                 {location?.name}
               </Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryIcon}>👤</Text>
+              <Ionicons name="person-outline" size={20} color={colors.icon} style={styles.summaryIcon} />
               <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
                 {employeeId === ANYONE_EMPLOYEE_ID
                   ? `${employee?.name || ''} (${t('booking.employee.anyone')})`
@@ -126,7 +127,7 @@ export default function ConfirmationScreen() {
               </Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryIcon}>{service?.icon || '✂️'}</Text>
+              <Ionicons name="cut-outline" size={20} color={colors.icon} style={styles.summaryIcon} />
               <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
                 {service?.name}
               </Text>
@@ -138,19 +139,19 @@ export default function ConfirmationScreen() {
           {/* Date & Time */}
           <View style={styles.summarySection}>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryIcon}>📅</Text>
+              <Ionicons name="calendar-outline" size={20} color={colors.icon} style={styles.summaryIcon} />
               <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
                 {timeSlot ? format(parseISO(timeSlot.start), 'dd MMMM yyyy') : ''}
               </Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryIcon}>🕐</Text>
+              <Ionicons name="time-outline" size={20} color={colors.icon} style={styles.summaryIcon} />
               <Text style={[typography.body, { color: colors.text, flex: 1 }]}>
                 {timeSlot ? format(parseISO(timeSlot.start), 'HH:mm') : ''}
               </Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryIcon}>💰</Text>
+              <Ionicons name="pricetag-outline" size={20} color={colors.icon} style={styles.summaryIcon} />
               <Text style={[typography.body, { color: colors.primary, fontWeight: '600', flex: 1 }]}>
                 {service?.priceFormatted}
               </Text>
@@ -187,7 +188,7 @@ export default function ConfirmationScreen() {
               },
             ]}
           >
-            {privacyAccepted && <Text style={styles.checkmark}>✓</Text>}
+            {privacyAccepted && <Ionicons name="checkmark" size={16} color="#FFFFFF" />}
           </View>
           <Text style={[typography.bodySmall, { color: colors.text, flex: 1 }]}>
             {t('booking.confirmation.privacyPolicy').split('Политика')[0]}
@@ -244,7 +245,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   summaryIcon: {
-    fontSize: 20,
     width: 32,
   },
   divider: {
@@ -263,11 +263,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  checkmark: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 14,
   },
   footer: {
     borderTopWidth: 1,

@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useAuthStore } from '../../../src/stores/authStore';
 import { useBookingStore } from '../../../src/stores/bookingStore';
@@ -123,7 +124,7 @@ export default function EmployeeSelectionScreen() {
         >
           <View style={styles.cardContent}>
             <View style={[styles.cardIcon, { backgroundColor: colors.primaryBackground }]}>
-              <Text style={styles.iconText}>👤</Text>
+              <Ionicons name="people-outline" size={24} color={colors.primary} />
             </View>
             <View style={styles.cardInfo}>
               <Text style={[typography.label, { color: colors.text }]}>
@@ -138,7 +139,7 @@ export default function EmployeeSelectionScreen() {
                 {t('booking.employee.anyoneDescription')}
               </Text>
             </View>
-            <Text style={{ color: colors.textMuted }}>▶</Text>
+            <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
           </View>
         </Card>
 
@@ -159,22 +160,20 @@ export default function EmployeeSelectionScreen() {
               style={{ marginBottom: spacing.md, opacity: isOnVacation ? 0.5 : 1 }}
             >
               <View style={styles.cardContent}>
-                <View style={styles.cardIcon}>
-                  <Text style={styles.iconText}>👤</Text>
+                <View style={[styles.cardIcon, { backgroundColor: colors.primaryBackground }]}>
+                  <Ionicons name="person-outline" size={24} color={colors.primary} />
                 </View>
                 <View style={styles.cardInfo}>
                   <Text style={[typography.label, { color: colors.text }]}>
                     {employee.name}
                   </Text>
                   {isOnVacation && (
-                    <Text
-                      style={[
-                        typography.caption,
-                        { color: colors.warning, marginTop: spacing.xs },
-                      ]}
-                    >
-                      🏖️ В отпуск
-                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.xs }}>
+                      <Ionicons name="airplane-outline" size={14} color={colors.warning} style={{ marginRight: 4 }} />
+                      <Text style={[typography.caption, { color: colors.warning }]}>
+                        В отпуск
+                      </Text>
+                    </View>
                   )}
                   {isLastSelected && !isOnVacation && (
                     <View
@@ -184,12 +183,12 @@ export default function EmployeeSelectionScreen() {
                       ]}
                     >
                       <Text style={[typography.caption, { color: colors.primary }]}>
-                        ✓ {t('booking.location.lastSelected')}
+                        <Ionicons name="checkmark" size={12} color={colors.primary} /> {t('booking.location.lastSelected')}
                       </Text>
                     </View>
                   )}
                 </View>
-                <Text style={{ color: colors.textMuted }}>▶</Text>
+                <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
               </View>
             </Card>
           );
@@ -240,9 +239,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
-  },
-  iconText: {
-    fontSize: 24,
   },
   cardInfo: {
     flex: 1,

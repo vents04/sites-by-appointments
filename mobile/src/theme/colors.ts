@@ -42,18 +42,17 @@ export const baseColors = {
   },
 };
 
-// Default primary color (cyan/teal from web)
-export const defaultPrimaryColor = '#00ACC2';
+// Default primary color (neutral near-black)
+export const defaultPrimaryColor = '#1A1A1A';
 
 // Function to generate color variants from a primary color
 export const generatePrimaryVariants = (primaryColor: string) => {
-  // For simplicity, we'll use opacity-based variants
-  // In production, you'd want proper color manipulation
+  // For neutral/black primary, use proper gray variants
   return {
     primary: primaryColor,
-    primaryLight: `${primaryColor}40`, // 25% opacity
-    primaryDark: primaryColor, // Same for now
-    primaryBackground: `${primaryColor}15`, // 10% opacity
+    primaryLight: '#404040', // Lighter gray
+    primaryDark: '#0D0D0D', // Darker black
+    primaryBackground: '#F5F5F5', // Light gray background
   };
 };
 
@@ -130,7 +129,7 @@ export const createLightTheme = (primaryColor: string = defaultPrimaryColor): Th
   };
 };
 
-// Dark theme (for future use)
+// Dark theme - near pure black neutral design
 export const createDarkTheme = (primaryColor: string = defaultPrimaryColor): ThemeColors => {
   const primaryVariants = generatePrimaryVariants(primaryColor);
 
@@ -138,20 +137,20 @@ export const createDarkTheme = (primaryColor: string = defaultPrimaryColor): The
     // Primary
     ...primaryVariants,
 
-    // Background
-    background: '#121212',
-    surface: '#1E1E1E',
-    card: '#2C2C2C',
+    // Background - near pure black
+    background: '#0A0A0A',
+    surface: '#141414',
+    card: '#1C1C1C',
 
     // Text
-    text: '#FFFFFF',
-    textSecondary: baseColors.gray[300],
-    textMuted: baseColors.gray[500],
+    text: '#FAFAFA',
+    textSecondary: '#B0B0B0',
+    textMuted: '#707070',
     textOnPrimary: '#FFFFFF',
 
     // Border
-    border: baseColors.gray[700],
-    borderLight: baseColors.gray[800],
+    border: '#2A2A2A',
+    borderLight: '#1F1F1F',
 
     // Status
     success: baseColors.success.light,
@@ -160,9 +159,9 @@ export const createDarkTheme = (primaryColor: string = defaultPrimaryColor): The
     info: baseColors.info.light,
 
     // Other
-    disabled: baseColors.gray[600],
-    placeholder: baseColors.gray[600],
-    icon: baseColors.gray[400],
-    iconMuted: baseColors.gray[600],
+    disabled: '#404040',
+    placeholder: '#606060',
+    icon: '#909090',
+    iconMuted: '#505050',
   };
 };

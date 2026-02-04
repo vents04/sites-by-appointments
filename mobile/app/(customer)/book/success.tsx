@@ -14,6 +14,7 @@ import Animated, {
   withDelay,
   withSequence,
 } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useUserPreferencesStore } from '../../../src/stores/userPreferencesStore';
 import { Button } from '../../../src/components/ui';
@@ -70,11 +71,11 @@ export default function SuccessScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
-        {/* Confetti emoji */}
+        {/* Confetti icons */}
         <Animated.View style={[styles.confettiContainer, confettiAnimatedStyle]}>
-          <Text style={styles.confetti}>🎉</Text>
-          <Text style={styles.confetti}>✨</Text>
-          <Text style={styles.confetti}>🎊</Text>
+          <Ionicons name="sparkles" size={40} color={colors.warning} />
+          <Ionicons name="star" size={40} color={colors.primary} />
+          <Ionicons name="sparkles" size={40} color={colors.warning} />
         </Animated.View>
 
         {/* Success Icon */}
@@ -85,7 +86,7 @@ export default function SuccessScreen() {
               { backgroundColor: colors.success },
             ]}
           >
-            <Text style={styles.checkIcon}>✓</Text>
+            <Ionicons name="checkmark" size={48} color="#FFFFFF" />
           </View>
         </Animated.View>
 
@@ -117,16 +118,18 @@ export default function SuccessScreen() {
         {/* Actions */}
         <Animated.View style={[styles.actionsContainer, contentAnimatedStyle]}>
           <Button
-            title={`📅 ${t('booking.success.addToCalendar')}`}
+            title={t('booking.success.addToCalendar')}
             variant="outline"
             onPress={handleAddToCalendar}
             fullWidth
+            icon={<Ionicons name="calendar-outline" size={20} color={colors.primary} />}
             style={{ marginBottom: spacing.md }}
           />
           <Button
-            title={`🏠 ${t('booking.success.goHome')}`}
+            title={t('booking.success.goHome')}
             onPress={handleGoHome}
             fullWidth
+            icon={<Ionicons name="home-outline" size={20} color={colors.textOnPrimary} />}
           />
         </Animated.View>
       </View>
@@ -150,9 +153,6 @@ const styles = StyleSheet.create({
     top: '20%',
     gap: 20,
   },
-  confetti: {
-    fontSize: 48,
-  },
   iconContainer: {
     marginBottom: 32,
   },
@@ -162,11 +162,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  checkIcon: {
-    fontSize: 48,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
   },
   messageContainer: {
     alignItems: 'center',
