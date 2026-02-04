@@ -42,14 +42,15 @@ export default function LocationSelectionScreen() {
       const data = await getLocationsByBusinessId(business._id);
       setLocations(data);
       
-      // Auto-skip if only one location
+      // Pre-select if only one location
       if (data.length === 1) {
-        handleSelect(data[0]._id, true);
-        return;
-      }
-
-      // Pre-select last used location
-      if (preferences.lastLocationId && data.some(l => l._id === preferences.lastLocationId)) {
+        setSelectedId(data[0]._id);
+        setLocation(data[0]._id);
+        if (businessCode) {
+          setLastLocation(businessCode, data[0]._id);
+        }
+      } else if (preferences.lastLocationId && data.some(l => l._id === preferences.lastLocationId)) {
+        // Pre-select last used location
         setSelectedId(preferences.lastLocationId);
       }
     } catch (error) {
@@ -59,16 +60,11 @@ export default function LocationSelectionScreen() {
     }
   };
 
-  const handleSelect = (id: string, autoSkip = false) => {
+  const handleSelect = (id: string) => {
     setSelectedId(id);
     setLocation(id);
     if (businessCode) {
       setLastLocation(businessCode, id);
-    }
-    
-    if (autoSkip) {
-      // Navigate immediately if auto-skipping
-      router.push('/(customer)/book/employee');
     }
   };
 

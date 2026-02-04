@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { format, parseISO, isPast } from 'date-fns';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { useUserPreferencesStore } from '../../../src/stores/userPreferencesStore';
 import { useAppointmentsStore } from '../../../src/stores/appointmentsStore';
@@ -92,7 +93,9 @@ export default function AppointmentsScreen() {
       >
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
-            <Text style={styles.serviceIcon}>{service?.icon || '✂️'}</Text>
+            <View style={[styles.serviceIcon, { backgroundColor: colors.primaryBackground }]}>
+              <Ionicons name="cut-outline" size={24} color={colors.primary} />
+            </View>
             <View style={styles.cardHeaderInfo}>
               <Text style={[typography.label, { color: colors.text }]}>
                 {service?.name}
@@ -128,15 +131,24 @@ export default function AppointmentsScreen() {
           </View>
 
           <View style={[styles.cardDetails, { marginTop: spacing.sm }]}>
-            <Text style={[typography.bodySmall, { color: colors.textSecondary }]}>
-              📅 {format(parseISO(appointment.start), 'dd MMM yyyy, HH:mm')}
-            </Text>
-            <Text style={[typography.bodySmall, { color: colors.textSecondary, marginTop: 2 }]}>
-              📍 {location?.name}
-            </Text>
-            <Text style={[typography.bodySmall, { color: colors.textSecondary, marginTop: 2 }]}>
-              👤 {employee?.name}
-            </Text>
+            <View style={styles.detailRow}>
+              <Ionicons name="calendar-outline" size={14} color={colors.textSecondary} />
+              <Text style={[typography.bodySmall, { color: colors.textSecondary, marginLeft: 6 }]}>
+                {format(parseISO(appointment.start), 'dd MMM yyyy, HH:mm')}
+              </Text>
+            </View>
+            <View style={[styles.detailRow, { marginTop: 4 }]}>
+              <Ionicons name="location-outline" size={14} color={colors.textSecondary} />
+              <Text style={[typography.bodySmall, { color: colors.textSecondary, marginLeft: 6 }]}>
+                {location?.name}
+              </Text>
+            </View>
+            <View style={[styles.detailRow, { marginTop: 4 }]}>
+              <Ionicons name="person-outline" size={14} color={colors.textSecondary} />
+              <Text style={[typography.bodySmall, { color: colors.textSecondary, marginLeft: 6 }]}>
+                {employee?.name}
+              </Text>
+            </View>
           </View>
 
           {!isUpcoming && appointment.status === 'completed' && (
@@ -153,7 +165,8 @@ export default function AppointmentsScreen() {
     );
   };
 
-  if (isLoading && appointments.length === 0) {
+  // Only show loading if we have an email and are actively loading
+  if (isLoading && appointments.length === 0 && userEmail) {
     return <LoadingSpinner fullScreen message={t('common.loading')} />;
   }
 
@@ -223,7 +236,7 @@ export default function AppointmentsScreen() {
       >
         {displayAppointments.length === 0 ? (
           <EmptyState
-            icon="📅"
+            iconName="calendar-outline"
             title={activeTab === 'upcoming' ? t('appointments.empty') : t('appointments.emptyPast')}
             actionLabel={activeTab === 'upcoming' ? t('booking.title') : undefined}
             onAction={activeTab === 'upcoming' ? () => router.push('/(customer)/book') : undefined}
@@ -265,8 +278,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   serviceIcon: {
-    fontSize: 32,
+    width: 48,
+    height: 48,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 12,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   cardHeaderInfo: {
     flex: 1,

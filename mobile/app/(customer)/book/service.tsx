@@ -48,14 +48,15 @@ export default function ServiceSelectionScreen() {
       const data = await getServicesByEmployeeId(employeeId);
       setServices(data);
 
-      // Auto-skip if only one service
+      // Pre-select if only one service
       if (data.length === 1) {
-        handleSelect(data[0]._id, true);
-        return;
-      }
-
-      // Pre-select last used service
-      if (preferences.lastServiceId && data.some(s => s._id === preferences.lastServiceId)) {
+        setSelectedId(data[0]._id);
+        setService(data[0]._id);
+        if (businessCode) {
+          setLastService(businessCode, data[0]._id);
+        }
+      } else if (preferences.lastServiceId && data.some(s => s._id === preferences.lastServiceId)) {
+        // Pre-select last used service
         setSelectedId(preferences.lastServiceId);
       }
     } catch (error) {
@@ -65,15 +66,11 @@ export default function ServiceSelectionScreen() {
     }
   };
 
-  const handleSelect = (id: string, autoSkip = false) => {
+  const handleSelect = (id: string) => {
     setSelectedId(id);
     setService(id);
     if (businessCode) {
       setLastService(businessCode, id);
-    }
-
-    if (autoSkip) {
-      router.push('/(customer)/book/datetime');
     }
   };
 

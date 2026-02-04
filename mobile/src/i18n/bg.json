@@ -72,10 +72,25 @@
       "submit": "Потвърди резервация"
     },
     "success": {
-      "title": "Успешна резервация!",
-      "emailSent": "Ще получите потвърждение на:",
+      "title": "Резервацията е потвърдена!",
+      "subtitle": "Вашият час е успешно запазен",
+      "bookingDetails": "Детайли за резервацията",
+      "dateTime": "Дата и час",
+      "service": "Услуга",
+      "specialist": "Специалист",
+      "location": "Локация",
+      "emailSent": "Потвърждение изпратено на",
       "addToCalendar": "Добави в календар",
-      "goHome": "Към началото"
+      "addedToCalendar": "Добавено в календар",
+      "viewAppointments": "Моите резервации",
+      "goHome": "Нова резервация",
+      "calendarPermissionTitle": "Достъп до календар",
+      "calendarPermissionMessage": "Моля, разрешете достъп до календара в настройките на устройството.",
+      "noCalendar": "Няма наличен календар на това устройство",
+      "calendarAddedTitle": "Добавено в календар",
+      "calendarAddedMessage": "Вашият час е добавен в календара с напомняне 1 час преди.",
+      "calendarError": "Не успяхме да добавим в календара. Моля, опитайте отново.",
+      "calendarNote": "Час запазен чрез GoBarber"
     }
   },
   "appointments": {

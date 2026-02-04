@@ -47,14 +47,15 @@ export default function EmployeeSelectionScreen() {
       const data = await getEmployeesByLocationId(locationId);
       setEmployees(data);
 
-      // Auto-skip if only one employee
+      // Pre-select if only one employee
       if (data.length === 1) {
-        handleSelect(data[0]._id, true);
-        return;
-      }
-
-      // Pre-select last used employee or "anyone"
-      if (preferences.lastEmployeeId && data.some(e => e._id === preferences.lastEmployeeId)) {
+        setSelectedId(data[0]._id);
+        setEmployee(data[0]._id);
+        if (businessCode) {
+          setLastEmployee(businessCode, data[0]._id);
+        }
+      } else if (preferences.lastEmployeeId && data.some(e => e._id === preferences.lastEmployeeId)) {
+        // Pre-select last used employee
         setSelectedId(preferences.lastEmployeeId);
       }
     } catch (error) {
@@ -64,15 +65,11 @@ export default function EmployeeSelectionScreen() {
     }
   };
 
-  const handleSelect = (id: string, autoSkip = false) => {
+  const handleSelect = (id: string) => {
     setSelectedId(id);
     setEmployee(id);
     if (businessCode && id !== ANYONE_EMPLOYEE_ID) {
       setLastEmployee(businessCode, id);
-    }
-
-    if (autoSkip) {
-      router.push('/(customer)/book/service');
     }
   };
 

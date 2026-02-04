@@ -72,10 +72,25 @@
       "submit": "Confirm booking"
     },
     "success": {
-      "title": "Booking successful!",
-      "emailSent": "You will receive confirmation at:",
-      "addToCalendar": "Add to calendar",
-      "goHome": "Go to home"
+      "title": "Booking Confirmed!",
+      "subtitle": "Your appointment has been successfully booked",
+      "bookingDetails": "Booking Details",
+      "dateTime": "Date & Time",
+      "service": "Service",
+      "specialist": "Specialist",
+      "location": "Location",
+      "emailSent": "Confirmation sent to",
+      "addToCalendar": "Add to Calendar",
+      "addedToCalendar": "Added to Calendar",
+      "viewAppointments": "View My Appointments",
+      "goHome": "Book Another",
+      "calendarPermissionTitle": "Calendar Permission",
+      "calendarPermissionMessage": "Please enable calendar access in your device settings to add this appointment.",
+      "noCalendar": "No calendar available on this device",
+      "calendarAddedTitle": "Added to Calendar",
+      "calendarAddedMessage": "Your appointment has been added to your calendar with a 1 hour reminder.",
+      "calendarError": "Could not add to calendar. Please try again.",
+      "calendarNote": "Appointment booked via GoBarber"
     }
   },
   "appointments": {

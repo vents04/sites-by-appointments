@@ -18,13 +18,13 @@ import {
 } from './mockData';
 import { addDays, format, parse, isWithinInterval, isSameDay, setHours, setMinutes } from 'date-fns';
 
-// Simulate network delay
-const delay = (ms: number = 500) => new Promise((resolve) => setTimeout(resolve, ms));
+// Simulate network delay - kept minimal for mock data
+const delay = (ms: number = 50) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // ============ BUSINESS API ============
 
 export const getBusinessByCode = async (code: string): Promise<Business | null> => {
-  await delay(800);
+  await delay(100);
   const business = MOCK_BUSINESSES.find(
     (b) => b.URLpostfix.toLowerCase() === code.toLowerCase()
   );
@@ -35,7 +35,7 @@ export const validateAdminCredentials = async (
   code: string,
   password: string
 ): Promise<{ success: boolean; business?: Business }> => {
-  await delay(1000);
+  await delay(200);
   const business = MOCK_BUSINESSES.find(
     (b) => b.URLpostfix.toLowerCase() === code.toLowerCase() && b.adminPassword === password
   );
@@ -198,9 +198,10 @@ export const getAvailableTimeSlots = async (
   locationId: string,
   employeeId: string,
   serviceId: string,
-  dateStr: string
+  dateStr: string,
+  skipDelay: boolean = false
 ): Promise<TimeSlot[]> => {
-  await delay(600);
+  if (!skipDelay) await delay(50);
 
   const business = MOCK_BUSINESSES.find((b) => b._id === businessId);
   const location = MOCK_LOCATIONS.find((l) => l._id === locationId);
@@ -249,7 +250,7 @@ export const getAvailableDates = async (
   employeeId: string,
   serviceId: string
 ): Promise<string[]> => {
-  await delay(400);
+  await delay(100);
 
   const business = MOCK_BUSINESSES.find((b) => b._id === businessId);
   if (!business) return [];
@@ -258,6 +259,7 @@ export const getAvailableDates = async (
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  // Check dates without additional delays (skipDelay = true)
   for (let i = 0; i < business.maximumDaysInFuture; i++) {
     const date = addDays(today, i);
     const slots = await getAvailableTimeSlots(
@@ -265,7 +267,8 @@ export const getAvailableDates = async (
       locationId,
       employeeId,
       serviceId,
-      date.toISOString()
+      date.toISOString(),
+      true // Skip delay for inner calls
     );
     if (slots.length > 0) {
       availableDates.push(format(date, 'yyyy-MM-dd'));
@@ -278,14 +281,14 @@ export const getAvailableDates = async (
 // ============ APPOINTMENTS API ============
 
 export const getAppointmentsByCustomerEmail = async (email: string): Promise<Appointment[]> => {
-  await delay(500);
+  await delay(50);
   return MOCK_APPOINTMENTS.filter(
     (apt) => apt.customer.email.toLowerCase() === email.toLowerCase()
   );
 };
 
 export const getAppointmentsByBusinessId = async (businessId: string): Promise<Appointment[]> => {
-  await delay(500);
+  await delay(50);
   const businessLocations = MOCK_LOCATIONS.filter((l) => l.businessId === businessId);
   const locationIds = businessLocations.map((l) => l._id);
   return MOCK_APPOINTMENTS.filter((apt) => locationIds.includes(apt.locationId));
@@ -294,7 +297,7 @@ export const getAppointmentsByBusinessId = async (businessId: string): Promise<A
 export const createAppointment = async (
   data: Omit<Appointment, '_id' | 'createdAt' | 'status'>
 ): Promise<Appointment> => {
-  await delay(1000);
+  await delay(300);
 
   const newAppointment: Appointment = {
     ...data,
@@ -308,7 +311,7 @@ export const createAppointment = async (
 };
 
 export const cancelAppointment = async (appointmentId: string): Promise<boolean> => {
-  await delay(500);
+  await delay(50);
   updateMockAppointmentStatus(appointmentId, 'cancelled');
   return true;
 };
