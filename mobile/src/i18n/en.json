@@ -1,0 +1,182 @@
+{
+  "common": {
+    "next": "Next",
+    "back": "Back",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search...",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "required": "Required field",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "auth": {
+    "entry": {
+      "title": "GoBarber",
+      "subtitle": "Your booking partner",
+      "codePlaceholder": "Enter business code",
+      "submit": "Continue",
+      "iAmBusiness": "I am a business",
+      "invalidCode": "Invalid business code"
+    },
+    "admin": {
+      "title": "Administrator Login",
+      "code": "Business Code",
+      "password": "Password",
+      "login": "Login",
+      "invalidCredentials": "Invalid credentials"
+    }
+  },
+  "booking": {
+    "title": "Booking",
+    "step": "Step {{current}}/{{total}}",
+    "location": {
+      "title": "Select location",
+      "lastSelected": "Last selected"
+    },
+    "employee": {
+      "title": "Select specialist",
+      "anyone": "Anyone available",
+      "anyoneDescription": "We'll match you with the first available specialist"
+    },
+    "service": {
+      "title": "Select service",
+      "duration": "{{minutes}} min"
+    },
+    "datetime": {
+      "title": "Select date and time",
+      "availableSlots": "Available times for {{date}}:",
+      "noSlots": "No available slots for the selected period"
+    },
+    "personalData": {
+      "title": "Your details",
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "namePlaceholder": "John Doe",
+      "phonePlaceholder": "+1 234 567 890",
+      "emailPlaceholder": "john@email.com",
+      "nameRequired": "Name is required",
+      "phoneRequired": "Phone is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email"
+    },
+    "confirmation": {
+      "title": "Confirm your booking",
+      "privacyPolicy": "I agree to the Privacy Policy",
+      "submit": "Confirm booking"
+    },
+    "success": {
+      "title": "Booking successful!",
+      "emailSent": "You will receive confirmation at:",
+      "addToCalendar": "Add to calendar",
+      "goHome": "Go to home"
+    }
+  },
+  "appointments": {
+    "title": "Appointments",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "empty": "No appointments yet. Let's fix that! 💇",
+    "emptyPast": "No past appointments yet.",
+    "bookAgain": "Book again",
+    "cancel": "Cancel appointment",
+    "cancelConfirmTitle": "Are you sure?",
+    "cancelConfirmMessage": "Do you want to cancel this appointment?",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "confirmed": "Confirmed",
+    "detail": {
+      "title": "Appointment details"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "notifications": "Notifications",
+    "pushNotifications": "Push notifications",
+    "reminder": "Reminder before appointment",
+    "leaveBusiness": "Leave business",
+    "leaveConfirmTitle": "Are you sure?",
+    "leaveConfirmMessage": "You will lose your saved preferences for this business.",
+    "logout": "Logout",
+    "version": "Version"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "today": "Today",
+      "bookingsToday": "Bookings today",
+      "availableSlots": "Available slots",
+      "expectedRevenue": "Expected revenue",
+      "cancelledToday": "Cancelled today",
+      "upcomingBookings": "Upcoming bookings",
+      "quickActions": "Quick actions",
+      "blockTime": "Block time",
+      "addBreak": "Add break"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "allEmployees": "All"
+    },
+    "appointments": {
+      "title": "Appointments",
+      "today": "Today",
+      "create": "Add appointment",
+      "call": "Call",
+      "customer": "Customer"
+    },
+    "settings": {
+      "title": "Settings",
+      "businessInfo": "Business information",
+      "workingHours": "Working hours",
+      "employees": "Employees",
+      "branding": "Branding"
+    },
+    "branding": {
+      "title": "Branding",
+      "logo": "Logo",
+      "changeLogo": "Change logo",
+      "primaryColor": "Primary color",
+      "preview": "Preview"
+    }
+  },
+  "errors": {
+    "networkError": "Connection problem. Check your internet.",
+    "unknownError": "Oops! Something went wrong. Try again.",
+    "validationError": "Please check your input."
+  },
+  "calendar": {
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "days": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat",
+      "sunday": "Sun"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "bookingConfirmation": {
+    "subject": "Booking Confirmation",
+    "greeting": "Hello, {{name}}!",
+    "body": "Your booking has been confirmed.",
+    "details": "Booking details:",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "employee": "Specialist",
+    "location": "Address",
+    "footer": "If you have any questions, feel free to contact us."
+  },
+  
+  "bookingCancellation": {
+    "subject": "Booking Cancellation",
+    "greeting": "Hello, {{name}}!",
+    "body": "Your booking has been cancelled.",
+    "details": "Cancelled booking details:",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "reason": "Reason",
+    "footer": "You can make a new booking at any time."
+  },
+  
+  "bookingReminder": {
+    "subject": "Booking Reminder",
+    "greeting": "Hello, {{name}}!",
+    "body24h": "This is a reminder that you have a booking tomorrow.",
+    "body1h": "This is a reminder that you have a booking in 1 hour.",
+    "details": "Booking details:",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "employee": "Specialist",
+    "location": "Address",
+    "footer": "We look forward to seeing you!"
+  },
+  
+  "common": {
+    "poweredBy": "Powered by sitezup.com",
+    "contact": "Contact us",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website"
+  }
+}

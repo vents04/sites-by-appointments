@@ -1,0 +1,260 @@
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../../src/theme/ThemeProvider';
+import { useAuthStore } from '../../../src/stores/authStore';
+import { useBookingStore } from '../../../src/stores/bookingStore';
+import { useUserPreferencesStore } from '../../../src/stores/userPreferencesStore';
+import { Button, Card, ProgressBar, LoadingSpinner } from '../../../src/components/ui';
+import { getEmployeesByLocationId } from '../../../src/services/mock/mockApi';
+import { Employee, ANYONE_EMPLOYEE_ID } from '../../../src/types';
+
+export default function EmployeeSelectionScreen() {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const router = useRouter();
+  const { businessCode } = useAuthStore();
+  const { locationId, employeeId, setEmployee, setCurrentStep, getProgress, prevStep } = useBookingStore();
+  const { getPreferencesForBusiness, setLastEmployee } = useUserPreferencesStore();
+
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedId, setSelectedId] = useState<string | null>(employeeId);
+
+  const { colors, spacing, typography } = theme;
+  const preferences = businessCode ? getPreferencesForBusiness(businessCode) : {};
+
+  useEffect(() => {
+    loadEmployees();
+  }, [locationId]);
+
+  const loadEmployees = async () => {
+    if (!locationId) {
+      router.replace('/(customer)/book');
+      return;
+    }
+
+    try {
+      const data = await getEmployeesByLocationId(locationId);
+      setEmployees(data);
+
+      // Auto-skip if only one employee
+      if (data.length === 1) {
+        handleSelect(data[0]._id, true);
+        return;
+      }
+
+      // Pre-select last used employee or "anyone"
+      if (preferences.lastEmployeeId && data.some(e => e._id === preferences.lastEmployeeId)) {
+        setSelectedId(preferences.lastEmployeeId);
+      }
+    } catch (error) {
+      console.error('Error loading employees:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelect = (id: string, autoSkip = false) => {
+    setSelectedId(id);
+    setEmployee(id);
+    if (businessCode && id !== ANYONE_EMPLOYEE_ID) {
+      setLastEmployee(businessCode, id);
+    }
+
+    if (autoSkip) {
+      router.push('/(customer)/book/service');
+    }
+  };
+
+  const handleBack = () => {
+    prevStep();
+    router.back();
+  };
+
+  const handleNext = () => {
+    if (selectedId) {
+      setCurrentStep(2);
+      router.push('/(customer)/book/service');
+    }
+  };
+
+  if (loading) {
+    return <LoadingSpinner fullScreen message={t('common.loading')} />;
+  }
+
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      {/* Header */}
+      <View style={[styles.header, { paddingHorizontal: spacing.lg, paddingTop: spacing.md }]}>
+        <View style={styles.headerRow}>
+          <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+            <Text style={[typography.body, { color: colors.primary }]}>← {t('common.back')}</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={[typography.h4, { color: colors.text, marginTop: spacing.sm }]}>
+          {t('booking.employee.title')}
+        </Text>
+        <Text style={[typography.caption, { color: colors.textMuted, marginTop: spacing.xs }]}>
+          {t('booking.step', { current: 2, total: 6 })}
+        </Text>
+        <ProgressBar progress={getProgress()} style={{ marginTop: spacing.md }} />
+      </View>
+
+      {/* Employees List */}
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[styles.scrollContent, { padding: spacing.lg }]}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* "Anyone available" option - always first */}
+        <Card
+          selected={selectedId === ANYONE_EMPLOYEE_ID}
+          onPress={() => handleSelect(ANYONE_EMPLOYEE_ID)}
+          style={{ marginBottom: spacing.md }}
+        >
+          <View style={styles.cardContent}>
+            <View style={[styles.cardIcon, { backgroundColor: colors.primaryBackground }]}>
+              <Text style={styles.iconText}>👤</Text>
+            </View>
+            <View style={styles.cardInfo}>
+              <Text style={[typography.label, { color: colors.text }]}>
+                {t('booking.employee.anyone')}
+              </Text>
+              <Text
+                style={[
+                  typography.bodySmall,
+                  { color: colors.textSecondary, marginTop: spacing.xs },
+                ]}
+              >
+                {t('booking.employee.anyoneDescription')}
+              </Text>
+            </View>
+            <Text style={{ color: colors.textMuted }}>▶</Text>
+          </View>
+        </Card>
+
+        {/* Employee list */}
+        {employees.map((employee) => {
+          const isSelected = selectedId === employee._id;
+          const isLastSelected = preferences.lastEmployeeId === employee._id;
+          const isOnVacation = employee.vacation && 
+            new Date(employee.vacation.start) <= new Date() && 
+            new Date(employee.vacation.end) >= new Date();
+
+          return (
+            <Card
+              key={employee._id}
+              selected={isSelected}
+              onPress={() => !isOnVacation && handleSelect(employee._id)}
+              disabled={isOnVacation}
+              style={{ marginBottom: spacing.md, opacity: isOnVacation ? 0.5 : 1 }}
+            >
+              <View style={styles.cardContent}>
+                <View style={styles.cardIcon}>
+                  <Text style={styles.iconText}>👤</Text>
+                </View>
+                <View style={styles.cardInfo}>
+                  <Text style={[typography.label, { color: colors.text }]}>
+                    {employee.name}
+                  </Text>
+                  {isOnVacation && (
+                    <Text
+                      style={[
+                        typography.caption,
+                        { color: colors.warning, marginTop: spacing.xs },
+                      ]}
+                    >
+                      🏖️ В отпуск
+                    </Text>
+                  )}
+                  {isLastSelected && !isOnVacation && (
+                    <View
+                      style={[
+                        styles.badge,
+                        { backgroundColor: colors.primaryBackground, marginTop: spacing.sm },
+                      ]}
+                    >
+                      <Text style={[typography.caption, { color: colors.primary }]}>
+                        ✓ {t('booking.location.lastSelected')}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                <Text style={{ color: colors.textMuted }}>▶</Text>
+              </View>
+            </Card>
+          );
+        })}
+      </ScrollView>
+
+      {/* Footer */}
+      <View style={[styles.footer, { padding: spacing.lg, backgroundColor: colors.surface }]}>
+        <Button
+          title={t('common.next')}
+          onPress={handleNext}
+          disabled={!selectedId}
+          fullWidth
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    borderBottomWidth: 0,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backButton: {
+    paddingVertical: 4,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cardIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  iconText: {
+    fontSize: 24,
+  },
+  cardInfo: {
+    flex: 1,
+  },
+  badge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  footer: {
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+  },
+});

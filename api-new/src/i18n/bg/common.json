@@ -1,0 +1,90 @@
+{
+  "welcome": "Добре дошли",
+  "success": "Успешно",
+  "error": "Грешка",
+  "loading": "Зареждане...",
+  "save": "Запази",
+  "cancel": "Отказ",
+  "delete": "Изтрий",
+  "edit": "Редактирай",
+  "create": "Създай",
+  "update": "Актуализирай",
+  "search": "Търси",
+  "filter": "Филтър",
+  "all": "Всички",
+  "none": "Няма",
+  "yes": "Да",
+  "no": "Не",
+  "confirm": "Потвърди",
+  "back": "Назад",
+  "next": "Напред",
+  "previous": "Предишен",
+  "close": "Затвори",
+  
+  "booking": {
+    "title": "Резервация",
+    "confirmed": "Потвърдена",
+    "pending": "Изчакваща",
+    "cancelled": "Отменена",
+    "completed": "Завършена",
+    "noShow": "Неявяване",
+    "selectService": "Изберете услуга",
+    "selectEmployee": "Изберете специалист",
+    "selectDate": "Изберете дата",
+    "selectTime": "Изберете час",
+    "yourDetails": "Вашите данни",
+    "name": "Име",
+    "phone": "Телефон",
+    "email": "Имейл",
+    "notes": "Бележки",
+    "summary": "Обобщение",
+    "confirmBooking": "Потвърди резервация",
+    "bookingSuccess": "Резервацията е успешна",
+    "cancelBooking": "Отмени резервация",
+    "cancelSuccess": "Резервацията е отменена"
+  },
+  
+  "calendar": {
+    "today": "Днес",
+    "week": "Седмица",
+    "month": "Месец",
+    "day": "Ден",
+    "noEvents": "Няма събития",
+    "allDay": "Цял ден"
+  },
+  
+  "days": {
+    "monday": "Понеделник",
+    "tuesday": "Вторник",
+    "wednesday": "Сряда",
+    "thursday": "Четвъртък",
+    "friday": "Петък",
+    "saturday": "Събота",
+    "sunday": "Неделя"
+  },
+  
+  "daysShort": {
+    "monday": "Пон",
+    "tuesday": "Вто",
+    "wednesday": "Сря",
+    "thursday": "Чет",
+    "friday": "Пет",
+    "saturday": "Съб",
+    "sunday": "Нед"
+  },
+  
+  "months": {
+    "january": "Януари",
+    "february": "Февруари",
+    "march": "Март",
+    "april": "Април",
+    "may": "Май",
+    "june": "Юни",
+    "july": "Юли",
+    "august": "Август",
+    "september": "Септември",
+    "october": "Октомври",
+    "november": "Ноември",
+    "december": "Декември"
+  }
+}

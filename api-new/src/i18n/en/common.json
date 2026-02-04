@@ -1,0 +1,90 @@
+{
+  "welcome": "Welcome",
+  "success": "Success",
+  "error": "Error",
+  "loading": "Loading...",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "create": "Create",
+  "update": "Update",
+  "search": "Search",
+  "filter": "Filter",
+  "all": "All",
+  "none": "None",
+  "yes": "Yes",
+  "no": "No",
+  "confirm": "Confirm",
+  "back": "Back",
+  "next": "Next",
+  "previous": "Previous",
+  "close": "Close",
+  
+  "booking": {
+    "title": "Booking",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "noShow": "No Show",
+    "selectService": "Select a service",
+    "selectEmployee": "Select a specialist",
+    "selectDate": "Select a date",
+    "selectTime": "Select a time",
+    "yourDetails": "Your details",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "notes": "Notes",
+    "summary": "Summary",
+    "confirmBooking": "Confirm booking",
+    "bookingSuccess": "Booking successful",
+    "cancelBooking": "Cancel booking",
+    "cancelSuccess": "Booking cancelled"
+  },
+  
+  "calendar": {
+    "today": "Today",
+    "week": "Week",
+    "month": "Month",
+    "day": "Day",
+    "noEvents": "No events",
+    "allDay": "All day"
+  },
+  
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  
+  "daysShort": {
+    "monday": "Mon",
+    "tuesday": "Tue",
+    "wednesday": "Wed",
+    "thursday": "Thu",
+    "friday": "Fri",
+    "saturday": "Sat",
+    "sunday": "Sun"
+  },
+  
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  }
+}

@@ -1,0 +1,138 @@
+{"clientIp":"::1","dt":1737410340444,"level":"error","message":"\"name\" is required"}
+{"clientIp":"::1","dt":1737410353918,"level":"error","message":"\"name\" is required"}
+{"clientIp":"::1","dt":1737411304330,"level":"error","message":"\"phone\" with value \"+359 876 151 924\" fails to match the required pattern: /^[0-9]{10,15}$/"}
+{"clientIp":"::1","dt":1737411349966,"level":"error","message":"\"phone\" with value \"+359 876 151 924\" fails to match the required pattern: /^\\+?[1-9]\\d{1,14}$/"}
+{"clientIp":"::1","dt":1737411352844,"level":"error","message":"\"phone\" with value \"+359 876 151 924\" fails to match the required pattern: /^\\+?[1-9]\\d{1,14}$/"}
+{"clientIp":"::1","dt":1737411373298,"level":"error","message":"\"website\" must be a valid uri"}
+{"clientIp":"::1","dt":1737411494413,"level":"error","message":"Business already exists"}
+{"clientIp":"::1","dt":1737411630086,"level":"error","message":"Business already exists"}
+{"clientIp":"::1","dt":1737411704145,"level":"error","message":"Business already exists"}
+{"clientIp":"::1","dt":1737411838325,"level":"error","message":"\"name\" is required"}
+{"clientIp":"::1","dt":1737412414476,"level":"error","message":"\"name\" is required"}
+{"clientIp":"::1","dt":1737413098232,"level":"error","message":"\"businessId\" is required"}
+{"clientIp":"::1","dt":1737413905186,"level":"error","message":"\"teamupCalendarId\" is required"}
+{"clientIp":"::1","dt":1737414610649,"level":"error","message":"Calendar already set for this business"}
+{"clientIp":"::1","dt":1737416710260,"level":"error","message":"errors.invalid_id"}
+{"clientIp":"::1","dt":1737420489755,"level":"error","message":"Calendar already set for this business"}
+{"clientIp":"::1","dt":1737495822736,"level":"error","message":"\"URLpostfix\" is required"}
+{"clientIp":"::1","dt":1737495837194,"level":"error","message":"\"isEmailSender\" is required"}
+{"clientIp":"::1","dt":1737498666452,"level":"error","message":"Business not found"}
+{"clientIp":"::1","dt":1737499122814,"level":"error","message":"mongoose is not defined"}
+{"clientIp":"::1","dt":1737499252138,"level":"error","message":"errors.invalid_id"}
+{"clientIp":"::1","dt":1737499302665,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499312525,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499338705,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499377480,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499403791,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499406171,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499407358,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499427118,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499428444,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499429342,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499430304,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499431124,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499432107,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499434863,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499498979,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::1","dt":1737499613091,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499616047,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499617048,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499617955,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499787497,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499789471,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499790352,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499790833,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737499791565,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1737560068384,"level":"error","message":"errors.not_found"}
+{"clientIp":"::1","dt":1737560315124,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1737926204749,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1737926283115,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1737926285506,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1737941878225,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1737941970693,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738007921427,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738007937631,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009132565,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009199451,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009324804,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009347295,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009386248,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009394825,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009404782,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009410741,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009466631,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009486415,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009528202,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009547056,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009547953,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009732952,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009805946,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009810599,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009829734,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009834246,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009861021,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738009874794,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010064688,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010108182,"level":"error","message":"errors.invalid_id"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010174951,"level":"error","message":"errors.invalid_id"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010259619,"level":"error","message":"errors.invalid_id"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010351440,"level":"error","message":"errors.invalid_id"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010466863,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010471408,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010491170,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738010528231,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013193073,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013203231,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013242878,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013258689,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013284796,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013297640,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013319963,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013326668,"level":"error","message":"errors.invalid_service"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013397398,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013398297,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013399214,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013400532,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013402001,"level":"error","message":"errors.invalid_duration"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013472310,"level":"error","message":"errors.invalid_duration"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013533415,"level":"error","message":"errors.invalid_time_slot_or_unavailable"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013773032,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013793302,"level":"error","message":"errors.invalid_time_slot_or_unavailable"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013853908,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013855754,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013865002,"level":"error","message":"errors.invalid_time_slot_or_unavailable"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013870501,"level":"error","message":"errors.invalid_time_slot_or_unavailable"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013903431,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738013965557,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014122760,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014124497,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014131677,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014202796,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014322941,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014393569,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014405344,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014405956,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014600457,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738014957877,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015006768,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015060006,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015342101,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015370983,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015466661,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015475981,"level":"error","message":"errors.teamup_event_creation_failed"}
+{"clientIp":"::ffff:172.20.10.6","dt":1738015592291,"level":"error","message":"errors.internal_server_error"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738031297670,"level":"error","message":"\"email\" must be a valid email"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738031305488,"level":"error","message":"\"email\" must be a valid email"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738031345986,"level":"error","message":"\"email\" must be a valid email"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738032091465,"level":"error","message":"\"email\" with value \"test@testtt.com\" fails to match the required pattern: /\\/^[w.-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$\\//"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738032098204,"level":"error","message":"\"email\" with value \"test@testtt.com\" fails to match the required pattern: /\\/^[w.-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$\\//"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738032243786,"level":"error","message":"\"email\" with value \"test@testtt.com\" fails to match the required pattern: /\\/^[w.-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$\\//"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738032864858,"level":"error","message":"errors.not_found"}
+{"clientIp":"::ffff:172.20.10.1","dt":1738032882132,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1738415979754,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1738416000444,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1738416016922,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1738416476407,"level":"error","message":"errors.inactive"}
+{"clientIp":"::1","dt":1738416485122,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1739193027938,"level":"error","message":"errors.inactive"}
+{"clientIp":"::ffff:172.20.10.6","dt":1739193031307,"level":"error","message":"errors.inactive"}
