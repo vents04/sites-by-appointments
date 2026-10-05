@@ -67,6 +67,26 @@ export default function Form(params: any) {
 
   const business = params.business
 
+  // Preselect a service (from ?service=<id> or the promo button) together with an employee and location that offer it
+  useEffect(() => {
+    if (!params.preselect) return;
+    const serviceId = params.preselect.serviceId;
+    const barberWithService = business.employees.find((emp: any) => emp.services.includes(serviceId));
+    if (!barberWithService) return;
+    const employeeLocation = business.locations.find((loc: any) =>
+      loc.employees.includes(barberWithService._id)
+    )?._id;
+
+    setPreviousStep(currentStep);
+    setCurrentStep(0);
+    setProgress(25);
+    setLocation(employeeLocation);
+    setEmployee(barberWithService._id);
+    setService(serviceId);
+    setErrors({});
+    triggerValueReset(0);
+  }, [params.preselect]);
+
   const next = async () => {
     const validateStep = () => {
       let errors: any = {};
