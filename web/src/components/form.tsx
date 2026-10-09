@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
-import { getAvailableTimeSlots, getNotices, postEvent } from '@/utils/request'
+import { getAvailableTimeSlots, getNotices, getUpsellOffer, postEvent, postUpsellBooking } from '@/utils/request'
 import { Calendar } from './Calendar';
 
 import moment from 'moment-timezone';
 import { useToast } from '@/hooks/use-toast';
 import { LoadingSpinner } from './LoadingSpinner';
+import { UpsellOffer, UpsellOfferData } from './UpsellOffer';
 
 import { TbChevronLeft } from "react-icons/tb";
 import { Progress } from './ui/progress';
@@ -62,6 +63,9 @@ export default function Form(params: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [pointerEventsDisabled, setPointerEventsDisabled] = useState(false);
   const [progress, setProgress] = useState(25)
+
+  // upsell offered right after a successful booking, together with the booking it is attached to
+  const [upsell, setUpsell] = useState<{ offer: UpsellOfferData, booking: any, status: 'offer' | 'confirm' | 'booking' | 'booked' } | null>(null)
 
   const delta = currentStep - previousStep
 
@@ -192,14 +196,20 @@ export default function Form(params: any) {
         phone,
       };
   
-      await postEvent(eventData);
-      
+      const createdEvent = await postEvent(eventData);
+
       setOriginalState();
   
       toast({
         title: "✅ Успешно записан час!",
         description: "Ще получите копие от резервацията на предоставения имейл",
       });
+
+      // an upsell is optional, a failure here must not affect the booking
+      try {
+        const response = await getUpsellOffer(eventData.calendarId, eventData.serviceId, createdEvent.teamupEventId);
+        if (response?.offer) setUpsell({ offer: response.offer, booking: { ...eventData, eventId: createdEvent.teamupEventId }, status: 'offer' });
+      } catch {}
     } catch (error: any) {
       toast({
         title: "Грешка",
@@ -212,6 +222,31 @@ export default function Form(params: any) {
       setPointerEventsDisabled(false);
     }
   };  
+
+  const handleUpsellAccept = async () => {
+    if (!upsell) return;
+    setUpsell({ ...upsell, status: 'booking' });
+    try {
+      await postUpsellBooking({
+        calendarId: upsell.booking.calendarId,
+        upsellId: upsell.offer.upsell._id,
+        serviceId: upsell.booking.serviceId,
+        eventId: upsell.booking.eventId,
+        timezone: upsell.booking.timezone,
+        name: upsell.booking.name,
+        email: upsell.booking.email,
+        phone: upsell.booking.phone,
+      });
+      setUpsell({ ...upsell, status: 'booked' });
+    } catch {
+      setUpsell(null);
+      toast({
+        title: "Грешка",
+        description: "Часът за допълнителната услуга вече не е свободен. Основният ви час е запазен.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const setOriginalState = () => {
     setPreviousStep(0);
@@ -246,6 +281,13 @@ export default function Form(params: any) {
       </div>
       : null
     }
+    <UpsellOffer
+      offer={upsell?.offer ?? null}
+      status={upsell?.status ?? 'offer'}
+      onAccept={() => upsell && setUpsell({ ...upsell, status: 'confirm' })}
+      onConfirm={handleUpsellAccept}
+      onBack={() => upsell && setUpsell({ ...upsell, status: 'offer' })}
+      onClose={() => setUpsell(null)} />
     <section className={`${pointerEventsDisabled ? 'pointer-events-none' : ''} inset-0 flex flex-col justify-between p-4`}>
       <div>
         <div className="flex items-center justify-start space-x-4 w-full py-3">

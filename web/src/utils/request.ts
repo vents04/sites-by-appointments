@@ -1,4 +1,4 @@
-const rootUrlApi = "https://api.appointments.sitezup.com";
+const rootUrlApi = process.env.NEXT_PUBLIC_API_URL || "https://api.appointments.sitezup.com";
 // http://172.20.10.6:2451
 
 // Cache buster - change this value to force all clients to bypass cache
@@ -107,4 +107,43 @@ async function postEvent(eventData: {
     return handleResponse(response);
 }
 
-export { getBusiness, getAvailableTimeSlots, getNotices,postEvent };
+async function getUpsellOffer(calendarId: string, serviceId: string, eventId: string) {
+    if (!calendarId || !serviceId || !eventId) {
+        throw new Error("Invalid input fields");
+    }
+
+    const url = `${rootUrlApi}/upsell/offer?calendarId=${calendarId}&serviceId=${serviceId}&eventId=${encodeURIComponent(eventId)}&_cb=${CACHE_VERSION}`;
+
+    const response = await fetch(url, {
+        headers: {
+            'Cache-Control': 'no-store',
+        },
+    });
+    return handleResponse(response);
+}
+
+async function postUpsellBooking(bookingData: {
+    calendarId: string;
+    upsellId: string;
+    serviceId: string;
+    eventId: string;
+    timezone: string;
+    name: string;
+    email: string;
+    phone: string;
+}) {
+    const url = `${rootUrlApi}/upsell/book?_cb=${CACHE_VERSION}`;
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Cache-Control': 'no-store',
+        },
+        body: JSON.stringify(bookingData),
+    });
+
+    return handleResponse(response);
+}
+
+export { getBusiness, getAvailableTimeSlots, getNotices, postEvent, getUpsellOffer, postUpsellBooking };

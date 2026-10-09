@@ -9,6 +9,7 @@ const locationRoute = require('./location.route');
 const serviceRoute = require('./service.route');
 const webhookRouter = require('./webhook.route');
 const noticeRoute = require('./notice.route');
+const upsellRoute = require('./upsell.route');
 
 router.use("/event", eventRoute);
 router.use("/business", businessRoute);
@@ -18,5 +19,6 @@ router.use("/location", locationRoute);
 router.use("/service", serviceRoute);
 router.use("/webhook", webhookRouter);
 router.use("/notice", noticeRoute);
+router.use("/upsell", upsellRoute);
 
 module.exports = router;

@@ -7,9 +7,7 @@ const DbService = require('../services/db.service');
 const CalendarService = require('../services/calendar.service');
 const ResponseError = require('../errors/responseError');
 const { eventPostValidation } = require('../validation/hapi');
-const TeamupService = require('../services/teamup.service');
-const EmailService = require('../services/email.service');
-const PersonalData = require('../db/models/PersonalData.model');
+const BookingService = require('../services/booking.service');
 
 router.post('/', async (req, res, next) => {
     const { error } = eventPostValidation(req.body);
@@ -51,60 +49,14 @@ router.post('/', async (req, res, next) => {
         const isTimeSlotAvailableAndValid = await CalendarService.checkTimeSlotValidityAndAvailability(calendar._id, req.body.startDt, req.body.endDt, employee.teamupSubCalendarId);
         if(!isTimeSlotAvailableAndValid) return next(new ResponseError("errors.invalid_time_slot_or_unavailable", HTTP_STATUS_CODES.CONFLICT));
 
-        req.body.startDt = moment(req.body.startDt).tz(req.body.timezone).format("YYYY-MM-DDTHH:mm:ssZ"); 
-        req.body.endDt = moment(req.body.endDt).tz(req.body.timezone).format("YYYY-MM-DDTHH:mm:ssZ");
+        const customer = { name: req.body.name, email: req.body.email, phone: req.body.phone, timezone: req.body.timezone };
 
-        const newEvent = {
-            calendarId: calendar._id,
-            teamupSubCalendarIds: [employee.teamupSubCalendarId],
-            start: req.body.startDt,
-            end: req.body.endDt,
-            allDay: false,
-        };
-        
-        // teamup service create event
-        const teamupEvent = await TeamupService.createEvent(
-            calendar.teamupSecretCalendarKey, 
-            calendar.teamupApiKey, 
-            [employee.teamupSubCalendarId],
-            `${req.body.name} - ${service.name}`,
-            `<p><b>Имейл:</b> ${req.body.email}</p><p><b>Телефонен номер:</b> ${req.body.phone}</p>`,
-            req.body.startDt,
-            req.body.endDt,
-        );
-        if(!teamupEvent) return next(new ResponseError("errors.teamup_event_creation_failed", HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR));
-
-        // create event in db
-        newEvent.teamupEventId = teamupEvent.id;
-        await DbService.create(COLLECTIONS.EVENTS, newEvent);
+        const newEvent = await BookingService.createEvent(calendar, service, employee, customer, req.body.startDt, req.body.endDt);
+        if(!newEvent) return next(new ResponseError("errors.teamup_event_creation_failed", HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR));
 
         res.status(HTTP_STATUS_CODES.CREATED).send(newEvent);
 
-        // send email to customer
-        const customerEmail = req.body.email;
-        const emailSubject = `Вашият час за ${service.name} е потвърден`;
-        const emailMessage = `
-            Здравейте ${req.body.name},<br/>
-            това са детайлите за вашия час:<br/>
-            - Услуга: ${service.name}<br/>
-            - Служител: ${employee.name}<br/>
-            - Цена: ${service.price}${service.currency}<br/>
-            - Дата: ${moment(startDt).tz(req.body.timezone).format("YYYY-MM-DD")}<br/>
-            - Час: ${moment(startDt).tz(req.body.timezone).format("HH:mm")}<br/>
-            - Продължителност: ${duration} ${duration == 1 ? 'минута': 'минути'}<br/>
-        `;
-
-        const location = await DbService.getOne(COLLECTIONS.LOCATIONS, {employees: {"$in": [new mongoose.Types.ObjectId(employee._id), employee._id]}})
-        if(location && location.phone) business.phone = location.phone
-        await EmailService.sendEmail(business, customerEmail, emailSubject, emailMessage);
-
-        const personalData = new PersonalData({
-            email: req.body.email,
-            phone: req.body.phone,
-            name: req.body.name
-        });
-
-        await DbService.create(COLLECTIONS.PERSONAL_DATA, personalData);
+        await BookingService.notifyCustomer(business, service, employee, customer, startDt, endDt);
 
         return;
     } catch(err) {

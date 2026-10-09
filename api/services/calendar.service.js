@@ -312,6 +312,58 @@ const CalendarService = {
             console.error(error);
             return null;
         }
+    },
+    // checks an exact interval (not bound to the service slot grid) against the employee's location working hours and events
+    isEmployeeAvailable: async (businessId, employee, startDt, endDt) => {
+        try {
+            const business = await DbService.getById(COLLECTIONS.BUSINESSES, businessId);
+            if(!business) return false;
+
+            const calendar = await DbService.getOne(COLLECTIONS.CALENDARS, { businessId: new mongoose.Types.ObjectId(businessId) });
+            if(!calendar) return false;
+
+            const location = await DbService.getOne(COLLECTIONS.LOCATIONS, { employees: { '$in': [employee._id, new mongoose.Types.ObjectId(employee._id)]}});
+            if(!location || !location.workingHours) return false;
+
+            const momentTimezone = calendar.timezone;
+            const start = moment(startDt).tz(momentTimezone).seconds(0).milliseconds(0);
+            const end = moment(endDt).tz(momentTimezone).seconds(0).milliseconds(0);
+            const startTs = start.valueOf();
+            const endTs = end.valueOf();
+            if(endTs <= startTs) return false;
+
+            const now = moment().tz(momentTimezone);
+            if(startTs < now.clone().add(business.minimumTimeSlotsInFuture * business.slotTime, 'minutes').valueOf()) return false;
+            if(start.isAfter(now.clone().add(business.maximumDaysInFuture, 'days').endOf('day'))) return false;
+
+            // the interval has to fit in one of the working hour ranges of that day
+            const day = start.format('dddd').toLowerCase();
+            const fitsWorkingHours = location.workingHours.some((wh) => {
+                if(wh.day !== day || wh.open === undefined || wh.close === undefined) return false;
+                const [openHour, openMinute] = wh.open.split(':').map(Number);
+                const [closeHour, closeMinute] = wh.close.split(':').map(Number);
+                const openTs = start.clone().set({ hour: openHour, minute: openMinute }).valueOf();
+                const closeTs = start.clone().set({ hour: closeHour, minute: closeMinute }).valueOf();
+                return startTs >= openTs && endTs <= closeTs;
+            });
+            if(!fitsWorkingHours) return false;
+
+            const teamupSubCalendarId = employee.teamupSubCalendarId;
+            // start/end are stored either as dates (synced events) or as strings (events created by the api), so compare in js
+            const events = await DbService.getMany(COLLECTIONS.EVENTS, {
+                calendarId: new mongoose.Types.ObjectId(calendar._id),
+                teamupSubCalendarIds: { '$in': [teamupSubCalendarId, parseInt(teamupSubCalendarId, 10)] }
+            });
+
+            return !events.some((event) => {
+                const eventStartTs = moment(event.start).seconds(0).milliseconds(0).valueOf();
+                const eventEndTs = moment(event.end).seconds(0).milliseconds(0).valueOf();
+                return startTs < eventEndTs && endTs > eventStartTs;
+            });
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
     }
 }
 

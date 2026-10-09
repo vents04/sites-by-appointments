@@ -245,6 +245,58 @@ const calendarPutValidation = (data) => {
     return schema.validate(data);
 };
 
+const upsellPostValidation = (data) => {
+    const schema = Joi.object({
+        businessId: objectIdValidation.required(),
+        serviceId: objectIdValidation.required(),
+        employeeId: objectIdValidation.required(),
+        triggerServiceIds: Joi.array().items(objectIdValidation).min(1).required(),
+        title: Joi.string().max(200).optional(),
+        description: Joi.string().max(1000).optional(),
+        status: Joi.string().valid('active', 'inactive', 'deleted').required()
+    });
+
+    return schema.validate(data);
+};
+
+const upsellPutValidation = (data) => {
+    const schema = Joi.object({
+        triggerServiceIds: Joi.array().items(objectIdValidation).min(1).optional(),
+        title: Joi.string().max(200).allow('').optional(),
+        description: Joi.string().max(1000).allow('').optional(),
+        status: Joi.string().valid('active', 'inactive', 'deleted').optional()
+    });
+
+    return schema.validate(data);
+};
+
+const upsellOfferValidation = (data) => {
+    const schema = Joi.object({
+        calendarId: objectIdValidation.required(),
+        serviceId: objectIdValidation.required(),
+        // teamup id of the event that was just booked
+        eventId: Joi.string().max(100).required(),
+        _cb: Joi.string().optional()
+    });
+
+    return schema.validate(data);
+};
+
+const upsellBookValidation = (data) => {
+    const schema = Joi.object({
+        calendarId: objectIdValidation.required(),
+        upsellId: objectIdValidation.required(),
+        serviceId: objectIdValidation.required(),
+        eventId: Joi.string().max(100).required(),
+        timezone: timezoneValidation.required(),
+        name: Joi.string().min(3).max(100).required(),
+        email: Joi.string().pattern(new RegExp('[A-Za-z0-9\\._%+\\-]+@[A-Za-z0-9\\.-]+\\.[A-Za-z]{2,}')).required(),
+        phone: Joi.string().required(),
+    });
+
+    return schema.validate(data);
+};
+
 module.exports = {
     eventPostValidation,
     servicePostValidation,
@@ -257,4 +309,8 @@ module.exports = {
     businessPutValidation,
     calendarPostValidation,
     calendarPutValidation,
+    upsellPostValidation,
+    upsellPutValidation,
+    upsellOfferValidation,
+    upsellBookValidation,
 }
