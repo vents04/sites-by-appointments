@@ -176,6 +176,14 @@ export default function Form(params: any) {
     setNotices(response);
   }
 
+  // Meta Pixel conversion, only sent once cookie consent is granted
+  const trackSchedule = (serviceName?: string, locationName?: string) => {
+    window.fbq?.('track', 'Schedule', {
+      content_name: serviceName,
+      location: locationName
+    });
+  };
+
   const handleSubmit = async () => {
     setPointerEventsDisabled(true);
   
@@ -198,6 +206,10 @@ export default function Form(params: any) {
   
       const createdEvent = await postEvent(eventData);
 
+      // read the names before setOriginalState() clears the selection
+      const locationName = business.locations.find((loc: any) => loc._id === location)?.name;
+      trackSchedule(business.services.find((srv: any) => srv._id === service)?.name, locationName);
+
       setOriginalState();
   
       toast({
@@ -208,7 +220,7 @@ export default function Form(params: any) {
       // an upsell is optional, a failure here must not affect the booking
       try {
         const response = await getUpsellOffer(eventData.calendarId, eventData.serviceId, createdEvent.teamupEventId);
-        if (response?.offer) setUpsell({ offer: response.offer, booking: { ...eventData, eventId: createdEvent.teamupEventId }, status: 'offer' });
+        if (response?.offer) setUpsell({ offer: response.offer, booking: { ...eventData, eventId: createdEvent.teamupEventId, locationName }, status: 'offer' });
       } catch {}
     } catch (error: any) {
       toast({
@@ -237,6 +249,7 @@ export default function Form(params: any) {
         email: upsell.booking.email,
         phone: upsell.booking.phone,
       });
+      trackSchedule(upsell.offer.service.name, upsell.booking.locationName);
       setUpsell({ ...upsell, status: 'booked' });
     } catch {
       setUpsell(null);

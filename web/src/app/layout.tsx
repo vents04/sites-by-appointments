@@ -4,6 +4,8 @@ import "react-day-picker/style.css";
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/footer';
+import CookieConsent from '@/components/CookieConsent';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -33,6 +35,18 @@ export default function RootLayout({
           <Toaster />
         </main>
         <Footer />
+        <CookieConsent />
+        <Script id="meta-pixel" strategy="afterInteractive">{`
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+          n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+          document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          // nothing is sent before cookie consent (choice saved by CookieConsent, shared with kerelski.com)
+          fbq('consent', (function () { try { return localStorage.getItem('kerelski_cookie_consent'); } catch (e) {} })() === 'granted' ? 'grant' : 'revoke');
+          fbq('init', '1636223157974934');
+          fbq('track', 'PageView');
+        `}</Script>
         <script
           defer
           type="text/javascript"
